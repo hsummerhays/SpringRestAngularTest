@@ -1,7 +1,9 @@
 package com.example.springrestangular.controller;
 
 import com.example.springrestangular.model.Customer;
-import com.example.springrestangular.repository.CustomerRepository;
+import com.example.springrestangular.service.CustomerService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,38 +12,36 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private final CustomerRepository repository;
+    private final CustomerService service;
 
-    public CustomerController(CustomerRepository repository) {
-        this.repository = repository;
+    public CustomerController(CustomerService service) {
+        this.service = service;
     }
 
     @GetMapping
     public List<Customer> getAllCustomers() {
-        return repository.findAll();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public Customer getCustomerById(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow();
+        return service.findById(id);
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return repository.save(customer);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Customer createCustomer(@Valid @RequestBody Customer customer) {
+        return service.create(customer);
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customerDetails) {
-        Customer customer = repository.findById(id).orElseThrow();
-        customer.setFirstName(customerDetails.getFirstName());
-        customer.setLastName(customerDetails.getLastName());
-        customer.setEmail(customerDetails.getEmail());
-        return repository.save(customer);
+    public Customer updateCustomer(@PathVariable Long id, @Valid @RequestBody Customer customerDetails) {
+        return service.update(id, customerDetails);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.delete(id);
     }
 }

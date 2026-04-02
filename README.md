@@ -10,11 +10,6 @@ A full-stack project demonstrating a seamless integration between a **Spring Boo
 
 ---
 
-## 🌟 Acknowledgement: Google Gravity 🌌
-This project wouldn't be where it is today without the spectacular capabilities of **Google Gravity**. The extra effort made in its creation, from architecture design to security implementation, is a testament to the future of agentic AI coding.
-
----
-
 ## 🛠️ Technology Stack
 
 ### Backend
@@ -25,7 +20,7 @@ This project wouldn't be where it is today without the spectacular capabilities 
 - **Security**: Azure Entra ID (OAuth2 Resource Server)
 
 ### Frontend
-- **Framework**: Angular 19+
+- **Framework**: Angular 21.2.0
 - **Security**: MSAL Angular (Azure AD/Entra ID integration)
 - **Styling**: Modern, responsive UI
 

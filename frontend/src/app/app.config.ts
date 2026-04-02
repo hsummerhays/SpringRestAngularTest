@@ -31,7 +31,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       postLogoutRedirectUri: 'http://localhost:4200',
     },
     cache: {
-      cacheLocation: BrowserCacheLocation.LocalStorage,
+      cacheLocation: BrowserCacheLocation.SessionStorage,
     },
   });
 }

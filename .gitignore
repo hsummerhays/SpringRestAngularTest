@@ -32,3 +32,6 @@ bin/
 
 ### VS Code ###
 .vscode/
+
+### SQLite ###
+*.db

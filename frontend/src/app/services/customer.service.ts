@@ -4,12 +4,13 @@ import { Observable, from, switchMap } from 'rxjs';
 import { Customer } from '../models/customer.model';
 import { MsalService } from '@azure/msal-angular';
 import { apiScope } from '../app.config';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  private apiUrl = 'http://localhost:8080/api/customers';
+  private apiUrl = `${environment.apiUrl}/customers`;
 
   constructor(private http: HttpClient, private authService: MsalService) { }
 

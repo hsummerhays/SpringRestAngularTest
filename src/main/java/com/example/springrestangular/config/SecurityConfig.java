@@ -1,5 +1,7 @@
 package com.example.springrestangular.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,8 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuerUri;
@@ -45,27 +49,19 @@ public class SecurityConfig {
     public JwtDecoder jwtDecoder() {
         NimbusJwtDecoder decoder = JwtDecoders.fromIssuerLocation(issuerUri);
 
-        // Validate that the audience includes our app ID URI
         OAuth2TokenValidator<Jwt> audienceValidator = token -> {
             List<String> audiences = token.getAudience();
-            System.out.println("Validating token from: " + token.getIssuer());
-            System.out.println("Token audiences: " + audiences);
-            
-            // Allow if exact match with API URI
+            log.trace("Validating token from: {}", token.getIssuer());
+            log.trace("Token audiences: {}", audiences);
+
             if (audiences != null && audiences.contains(appIdUri)) {
                 return OAuth2TokenValidatorResult.success();
             }
-            
-            // Allow if it contains the clientId (common in some MS flows)
-            if (audiences != null && audiences.stream().anyMatch(a -> a.contains("b9af3296-edc2-462c-b417-fadc5a695865"))) {
-                return OAuth2TokenValidatorResult.success();
-            }
-            
-            System.err.println("JWT Validation Failed: Audience mismatch. Expected: " + appIdUri + " but got: " + audiences);
+
+            log.warn("JWT validation failed: audience mismatch. Expected: {} but got: {}", appIdUri, audiences);
             return OAuth2TokenValidatorResult.failure(new OAuth2Error("invalid_token", "The audience is invalid", null));
         };
 
-        // Validate the issuer (support both v1 and v2 tokens)
         OAuth2TokenValidator<Jwt> issuerValidator = token -> {
             String issuer = token.getIssuer().toString();
             if (issuer.startsWith("https://sts.windows.net/") || issuer.startsWith("https://login.microsoftonline.com/")) {
