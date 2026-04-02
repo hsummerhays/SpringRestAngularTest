@@ -1,0 +1,42 @@
+<div class="landing-page">
+  <nav class="navbar animate-fade-in">
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">🚀</span>
+      <span>{{title}}</span>
+    </a>
+    <div class="nav-links">
+      <a [routerLink]="['/customers']" class="nav-item">Customers</a>
+      <a href="#" class="nav-item">Documentation</a>
+      <a href="#" class="nav-item">Support</a>
+      <a [routerLink]="['/customers']" class="btn btn-primary">Try Now</a>
+    </div>
+  </nav>
+
+  <main class="hero-section">
+    <div class="hero-content animate-fade-in">
+      <span class="badge">Version 2.0 Is Here</span>
+      <h1 class="hero-title">Elevate Your Customer <span class="text-gradient">Experience</span></h1>
+      <p class="hero-subtitle">The most advanced platform for managing customer relationships with enterprise-level precision.</p>
+      
+      <div class="hero-actions">
+        <a [routerLink]="['/customers']" class="btn btn-primary btn-lg">
+          Manage Customers 
+          <span class="btn-icon">→</span>
+        </a>
+        <a href="#" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+
+    <div class="hero-features animate-fade-in">
+      <div class="feature-card glass-card" *ngFor="let feature of features">
+        <div class="feature-icon">{{feature.icon}}</div>
+        <h3>{{feature.title}}</h3>
+        <p>{{feature.desc}}</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="landing-footer animate-fade-in">
+    <p>© 2026 CustomerX Cloud. Built with Google Deepmind & AI.</p>
+  </footer>
+</div>

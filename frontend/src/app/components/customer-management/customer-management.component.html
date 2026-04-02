@@ -1,0 +1,111 @@
+<div class="management-container animate-fade-in">
+  <header class="mgmt-header">
+    <div class="header-info">
+      <div class="header-top">
+        <a routerLink="/" class="back-link">← Home</a>
+        <h1>Customer Database</h1>
+      </div>
+      <p class="subtitle">Securely managing your enterprise assets.</p>
+    </div>
+    <div class="header-actions">
+      <ng-container *ngIf="isLoggedIn; else loggedOutHeader">
+        <div class="user-profile glass-card">
+          <span class="user-name">{{ account?.name }}</span>
+          <button class="btn btn-outline btn-sm" (click)="logout()">Sign Out</button>
+        </div>
+      </ng-container>
+      <ng-template #loggedOutHeader>
+        <button class="btn btn-primary" (click)="login()">Sign In with Microsoft</button>
+      </ng-template>
+    </div>
+  </header>
+
+  <!-- Unauthenticated view -->
+  <div class="login-splash" *ngIf="!isLoggedIn">
+    <div class="login-card glass-card">
+      <div class="login-icon">🔐</div>
+      <h2>Authentication Required</h2>
+      <p>This area is restricted. Please sign in to manage customers.</p>
+      <button class="btn btn-primary" (click)="login()">Sign In with Microsoft</button>
+    </div>
+  </div>
+
+  <!-- Authenticated view -->
+  <main class="mgmt-main" *ngIf="isLoggedIn">
+    <div class="grid-layout">
+      <!-- Form Section -->
+      <section class="form-section glass-card">
+        <div class="card-header">
+          <span class="icon">{{ isEditing ? '📝' : '➕' }}</span>
+          <h3>{{ isEditing ? 'Edit Customer' : 'Add New Customer' }}</h3>
+        </div>
+        
+        <form (ngSubmit)="saveCustomer()" class="mgmt-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" [(ngModel)]="currentCustomer.firstName" required placeholder="John">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" [(ngModel)]="currentCustomer.lastName" required placeholder="Doe">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" [(ngModel)]="currentCustomer.email" required placeholder="john.doe@enterprise.com">
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary w-full">{{ isEditing ? 'Update Profile' : 'Register Customer' }}</button>
+            <button type="button" class="btn btn-outline w-full" (click)="resetForm()" *ngIf="isEditing">Discard Changes</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- List Section -->
+      <section class="list-section glass-card">
+        <div class="card-header">
+          <span class="icon">📋</span>
+          <h3>Customer Directory</h3>
+          <span class="count-badge">{{customers.length}} total</span>
+        </div>
+
+        <div class="table-container">
+          <table class="mgmt-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let customer of customers">
+                <td>#{{ customer.id }}</td>
+                <td class="font-bold">{{ customer.firstName }} {{ customer.lastName }}</td>
+                <td class="text-dim">{{ customer.email }}</td>
+                <td class="actions-cell">
+                  <button class="action-btn edit" (click)="editCustomer(customer)" title="Edit">
+                    ✏️
+                  </button>
+                  <button class="action-btn delete" (click)="deleteCustomer(customer.id)" title="Delete">
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="customers.length === 0">
+                <td colspan="4" class="empty-state">
+                  <div class="empty-icon">📭</div>
+                  <p>No customers registered in the database.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

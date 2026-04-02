@@ -1,0 +1,77 @@
+<div class="container">
+  <header>
+    <h1>Customer Management</h1>
+    <div class="header-right">
+      <ng-container *ngIf="isLoggedIn; else loggedOutHeader">
+        <span class="user-name">{{ account?.name }}</span>
+        <button class="btn btn-outline" (click)="logout()">Sign Out</button>
+      </ng-container>
+      <ng-template #loggedOutHeader>
+        <button class="btn btn-primary" (click)="login()">Sign In with Microsoft</button>
+      </ng-template>
+    </div>
+  </header>
+
+  <!-- Unauthenticated view -->
+  <div class="login-splash" *ngIf="!isLoggedIn">
+    <div class="login-card">
+      <div class="login-icon">🔐</div>
+      <h2>Welcome to Customer Management</h2>
+      <p>Please sign in with your Microsoft account to continue.</p>
+      <button class="btn btn-primary btn-large" (click)="login()">Sign In with Microsoft</button>
+    </div>
+  </div>
+
+  <!-- Authenticated view -->
+  <main *ngIf="isLoggedIn">
+    <section class="form-section">
+      <h3>{{ isEditing ? 'Edit Customer' : 'Add New Customer' }}</h3>
+      <form (ngSubmit)="saveCustomer()">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="currentCustomer.firstName" required placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="currentCustomer.lastName" required placeholder="Enter last name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" [(ngModel)]="currentCustomer.email" required placeholder="Enter email address">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Save' }}</button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="list-section">
+      <h3>Customer List</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers">
+            <td>#{{ customer.id }}</td>
+            <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+            <td>{{ customer.email }}</td>
+            <td>
+              <button class="btn btn-sm btn-edit" (click)="editCustomer(customer)">Edit</button>
+              <button class="btn btn-sm btn-delete" (click)="deleteCustomer(customer.id)">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="customers.length === 0">
+            <td colspan="4" class="text-center">No customers found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>

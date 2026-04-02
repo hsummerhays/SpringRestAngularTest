@@ -1,26 +1,68 @@
-# Spring Boot 4 REST Project
+# 🚀 SpringRestAngularTest
 
-This project is initialized with:
-- **Spring Boot 4.0.5**
-- **Java 17**
-- **Gradle 9.1.0**
+[![Status](https://img.shields.io/badge/status-Work%20In%20Progress-orange?style=for-the-badge)](https://github.com/hsummerhays/SpringRestAngularTest)
+[![Built with AI](https://img.shields.io/badge/Built%20With-AI-blueviolet?style=for-the-badge)](https://github.com/hsummerhays/SpringRestAngularTest)
 
-## Project Structure
-- `src/main/java/com/example/rest/RestApplication.java`: Main entry point.
-- `src/main/java/com/example/rest/controller/HelloController.java`: A basic REST controller with a `/hello` endpoint.
-- `build.gradle`: Project dependencies and configuration.
+A full-stack project demonstrating a seamless integration between a **Spring Boot** backend and an **Angular** frontend, secured with **Azure Entra ID**.
 
-## How to Run
-Since Gradle was not found in the environment, you should initialize the Gradle wrapper first:
-1. Install Gradle 9.1 (if not already installed).
-2. Run the following command in the project root:
-   ```bash
-   gradle wrapper --gradle-version 9.1
-   ```
-3. Once initialized, you can run the application with:
-   ```bash
-   ./gradlew bootRun
-   ```
+> [!NOTE]
+> This is a **work in process** made remarkably easy by the power of AI.
 
-## Endpoint
-- `GET http://localhost:8080/hello`
+---
+
+## 🌟 Acknowledgement: Google Gravity 🌌
+This project wouldn't be where it is today without the spectacular capabilities of **Google Gravity**. The extra effort made in its creation, from architecture design to security implementation, is a testament to the future of agentic AI coding.
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Framework**: Spring Boot 4.0.5
+- **Language**: Java 17
+- **Build Tool**: Gradle 9.1.0
+- **Database**: SQLite (local dev)
+- **Security**: Azure Entra ID (OAuth2 Resource Server)
+
+### Frontend
+- **Framework**: Angular 19+
+- **Security**: MSAL Angular (Azure AD/Entra ID integration)
+- **Styling**: Modern, responsive UI
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Java 17+
+- Node.js & npm
+- PowerShell (for automated lifecycle scripts)
+
+### Installation & Run
+Simply run the included lifecycle script to launch both the backend and frontend in a split-pane, maximized terminal:
+
+```powershell
+./run.ps1
+```
+
+### 🛑 Termination
+To kill the relevant processes and clean up your environment:
+
+```powershell
+./stop.ps1
+```
+
+---
+
+## 📡 Endpoints
+- **Backend**: [http://localhost:8080/hello](http://localhost:8080/hello)
+- **Frontend**: [http://localhost:4200](http://localhost:4200)
+- **Customer API (Secured)**: [http://localhost:8080/api/customers](http://localhost:8080/api/customers)
+
+---
+
+## 📂 Project Structure
+- `src/`: Java source code (Controllers, Services, Models).
+- `frontend/`: Angular application source.
+- `.agents/`: Specialized AI instructions and workflows.
+- `run.ps1` & `stop.ps1`: Automated lifecycle management.

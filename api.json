@@ -1,0 +1,19 @@
+﻿{
+  "acceptMappedClaims": null,
+  "knownClientApplications": [],
+  "managedIdentities": [],
+  "oauth2PermissionScopes": [
+    {
+      "adminConsentDescription": "Allow the app to access the API",
+      "adminConsentDisplayName": "Access API",
+      "id": "1a63749f-bb87-4f23-b23d-82fcbaee246d",
+      "isEnabled": true,
+      "type": "Admin",
+      "userConsentDescription": "Allow the app to access the API",
+      "userConsentDisplayName": "Access API",
+      "value": "access_as_user"
+    }
+  ],
+  "preAuthorizedApplications": [],
+  "requestedAccessTokenVersion": 2
+}
