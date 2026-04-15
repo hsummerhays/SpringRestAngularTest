@@ -5,9 +5,6 @@
 
 A full-stack project demonstrating a seamless integration between a **Spring Boot** backend and an **Angular** frontend, secured with **Azure Entra ID**.
 
-> [!NOTE]
-> This is a **work in process** made remarkably easy by the power of AI.
-
 ---
 
 ## 🛠️ Technology Stack
